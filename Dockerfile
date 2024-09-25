@@ -1,4 +1,4 @@
-FROM apache/airflow:2.7.0
+FROM apache/airflow:2.5.1
 
 LABEL version="1.0.0"
 
@@ -9,3 +9,5 @@ COPY unittests.cfg ${AIRFLOW_HOME}/unittests.cfg
 COPY airflow.cfg ${AIRFLOW_HOME}/airflow.cfg
 COPY unittests/ ${AIRFLOW_HOME}/unittests
 COPY integrationtests ${AIRFLOW_HOME}/integrationtests
+
+
