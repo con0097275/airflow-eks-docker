@@ -1,6 +1,9 @@
 FROM apache/airflow:2.5.1
 
+## airflow version 2.7.0 not work
 # LABEL version="1.0.0"
+
+
 
 RUN pip install --user pytest
 
