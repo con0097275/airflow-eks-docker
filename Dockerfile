@@ -1,4 +1,4 @@
-FROM apache/airflow:2.5.1
+FROM apache/airflow:2.7.0
 
 # LABEL version="1.0.0"
 
