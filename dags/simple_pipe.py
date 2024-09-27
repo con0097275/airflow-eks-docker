@@ -31,3 +31,7 @@ with DAG("simple_pipe", default_args=default_args, schedule_interval="*/5 * * * 
     t3 = BashOperator(task_id="storing", bash_command="exit 0")
 
     t1 >> t2 >> t3
+    
+    
+    
+    
