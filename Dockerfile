@@ -16,7 +16,3 @@ COPY integrationtests ${AIRFLOW_HOME}/integrationtests
 
 
 
-
-
-
-
