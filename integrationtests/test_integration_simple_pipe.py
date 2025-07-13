@@ -5,6 +5,7 @@ from airflow.utils import timezone
 from airflow.exceptions import AirflowException
 from airflow.utils.db import provide_session
 from airflow import models
+from sqlalchemy.exc import ProgrammingError
 
 import pytest
 import json
@@ -32,7 +33,11 @@ class TestIntegrationSimplePipe:
         ]
         
         for table in tables:
-            session.query(table).filter(table.dag_id == dag_id).delete()
+            try:
+                session.query(table).filter(table.dag_id == dag_id).delete()
+            except ProgrammingError as e:
+                print(f"Skipping deletion from {table.__tablename__} due to error: {e}")
+                session.rollback()
         
     def trigger_dag(self, dag_id, execution_date):
         """
