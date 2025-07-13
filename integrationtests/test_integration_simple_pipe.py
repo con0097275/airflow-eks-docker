@@ -58,13 +58,17 @@ class TestIntegrationSimplePipe:
         """ Simple Pipe should run successfully """
         execution_date = "2020-05-21T12:00:00+00:00"
         dag_id = "simple_pipe"
-
+    
+        # Force load the DAG into DagBag (so DagModel exists)
+        from airflow.models import DagBag
+        DagBag(include_examples=False).get_dag(dag_id)
+    
         # Delete data related to the DAG (if already exists)
         self.clean_dag(dag_id)
         
         # Unpause DAG - Required to trigger it, even manually
         self.pause_dag(dag_id, False)
-
+    
         # Trigger the DAG
         self.trigger_dag(dag_id, execution_date)
         
@@ -76,7 +80,7 @@ class TestIntegrationSimplePipe:
                 return
             if dagrun == 'success':
                 is_running = False
-        assert is_running == False, "The DAG {} didn't run as expected".format(dag_id)
-
+        assert is_running == False, f"The DAG {dag_id} didn't run as expected"
+    
         # pause DAG
         self.pause_dag(dag_id, True)
